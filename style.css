@@ -42,14 +42,15 @@ form button {
   cursor: pointer;
   transition: all 0.3s ease;
   border: none;
+  font-size:1rem;
   
 }
 
-form button :hover {
-  background: white;
-  color: #D62841;
+/* form button :hover {
+  background: #D62841;
+  color: #ff4791;
   transition: all 0.3s ease;
-}
+} */
 .todo-container {
   display: flex;
   justify-content: center;
@@ -66,7 +67,7 @@ form button :hover {
   color: black;
   font-size: 1.5rem;
   display: flex;
-  justify-content: space-between;
+
   align-items: center;
   transition: all 0.5s ease;
 }
@@ -83,6 +84,8 @@ form button :hover {
   cursor: pointer;
   font-size: 1rem;
   border: 0px;
+  flex: inherit;
+  
 }
 
 .complete-btn {
@@ -157,20 +160,37 @@ select {
   border-radius: 5px;
 }
 
-.todo{
-  border: 3px solid black;
-  
-  margin: none;
-}
 
 
-.todo-button,
+
 .todo{
   background: #D62841;
   color: white;
-
   border-radius: 5px;
+  margin: none;
+
+
+  
  
+}
+
+
+.todo-button{
+  color: white;
+  border-radius: 0px 5px 5px 0px;
+}
+
+
+
+
+
+
+
+
+
+
+#wrap{
+
 }
 
 
@@ -184,14 +204,20 @@ select {
   background: #D62841;
   border: none;
   font-family: 'Armata', sans-serif;
+  font-size:0.7rem;
+  min-width: 1rem;
+  max-width: 10rem;
+  
 }
 
 .todo-input{
   color:white;
   font-family: 'Armata', sans-serif;
-  border-right: none  ;
-  border-radius: 5px;
+ 
+  border-radius: 5px 0px 0px 5px;
   margin-right: 1rem;
+  font-size:1rem;
+  min-width: 30rem;
 
 }
 
