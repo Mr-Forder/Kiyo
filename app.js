@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", getTodos);
 function addTodo(e) {
   //PREVENT FORM FROM SUBMITTING
   e.preventDefault();
+
   //create todo div
   const todoDiv = document.createElement("div");
   todoDiv.classList.add("todo");
