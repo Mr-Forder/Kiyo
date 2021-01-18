@@ -8,6 +8,7 @@ const filterOption = document.querySelector(".filter-todo");
 todoButton.addEventListener("click", addTodo);
 todoList.addEventListener("click", deleteCheck);
 filterOption.addEventListener("click", filterTodo);
+document.addEventListener("DOMContentLoaded", getTodos);
 //FUNCTIONS
 
 function addTodo(e) {
@@ -81,8 +82,8 @@ function filterTodo(e) {
 }
 
 function saveLocaltodos(todo) {
-  //CHECK - DO I ALREADY HAVE TODOS SAVED LOCALLY?
   let todos;
+  //CHECK - DO I ALREADY HAVE TODOS SAVED LOCALLY?
   if (localStorage.getItem("todos") === null) {
     todos = [];
   } else {
@@ -91,4 +92,37 @@ function saveLocaltodos(todo) {
 
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodos() {
+  console.log(`hello`);
+  let todos;
+  //CHECK - DO I ALREADY HAVE TODOS SAVED LOCALLY?
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.forEach(function (todo) {
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+    //create li
+    const newTodo = document.createElement("li");
+    newTodo.innerText = todo; //SETS CONTENTS OF TODO LI AS THE VALUE OF THE INPUT BOX -PLACEHOLDER WAS "hey"
+    newTodo.classList.add("todo-item");
+    todoDiv.appendChild(newTodo);
+    //Check mark button
+    const completedButton = document.createElement("button");
+    completedButton.innerHTML = '<i class="fas fa-check"></i>';
+    completedButton.classList.add("complete-btn");
+    todoDiv.appendChild(completedButton);
+
+    const trashButton = document.createElement("button");
+    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+    trashButton.classList.add("trash-btn");
+    todoDiv.appendChild(trashButton);
+
+    //append to list
+    todoList.appendChild(todoDiv);
+  });
 }
