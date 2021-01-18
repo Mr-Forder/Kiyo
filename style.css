@@ -51,7 +51,7 @@ form button :hover {
   align-items: center;
 }
 .todo-list {
-  min-width: 20%;
+  min-width: 36%;
   list-style: none;
 }
 
@@ -176,5 +176,6 @@ select {
   color:white;
   font-family: 'Armata', sans-serif;
   border:none;
+  height: 10rem;
 }
 */

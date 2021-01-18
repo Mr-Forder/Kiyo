@@ -46,6 +46,7 @@ function deleteCheck(e) {
   if (item.classList[0] === "trash-btn") {
     const todo = item.parentElement; //creates a variable called todo containing all of the contents of item
     todo.classList.add("fall"); //change todo class to 'fall'
+    removeLocalTodos(todo);
     todo.addEventListener("transitionend", function () {
       //adds an event listener with a function to activate once css transition is complete
       todo.remove(); //removes todo
@@ -82,15 +83,27 @@ function filterTodo(e) {
 }
 
 function saveLocaltodos(todo) {
-  let todos;
+  //FUNCTION TO PASS TODOS INTO LOCAL STORAGE
+  let todos; //CREATE EMPTY VARIABLE, TODOS
   //CHECK - DO I ALREADY HAVE TODOS SAVED LOCALLY?
+  if (localStorage.getItem("todos") === null) {
+    todos = []; //IF NOT, CHANGE TODOS VARIABLE INTO AN EMPTY ARRAY
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function removeLocalTodos(todo) {
+  let todos;
   if (localStorage.getItem("todos") === null) {
     todos = [];
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
-
-  todos.push(todo);
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
@@ -125,4 +138,18 @@ function getTodos() {
     //append to list
     todoList.appendChild(todoDiv);
   });
+
+  //REMOVING ELEMENTS FROM ARRAY - JUST MESSING ABOUT
+
+  const people = ["fred", "john", "roger", "dave", "mike"]; //CREATE AN ARRAY OF PEOPLE
+  console.log(people);
+
+  const rogerIndex = people.indexOf("roger"); //CREATE A VARIABLE, STORE THE INDEX VALUE OF ROGER
+
+  console.log(rogerIndex);
+
+  people.splice(rogerIndex, 1); // CUTS OUT ROGER FROM THE ARRAY. SELECTS ROGERINDEX, THEN GIVES 1 AS THE SECOND VALUE, AS YOU ONLY WANT TO SPLICE HIM, NOT OTHERS TOO
+  console.log(people);
+  //SO, YOU LOOK AT YOUR ARRAY, FIND THE INDEX OF WHO YOU WANT GONE, STORE IT IN A VARIABLE, THEN SPLICE THE ARRAY, CALLING THE INDEX VALUE YOU JUST FOUND, AND THE NUMBER 1 TO TELL
+  //THE SPLICE FUNCTION THAT YOU ONLY WANT TO DELETE ONE PERSON.
 }
