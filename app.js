@@ -21,6 +21,8 @@ function addTodo(e) {
   newTodo.innerText = todoInput.value; //SETS CONTENTS OF TODO LI AS THE VALUE OF THE INPUT BOX -PLACEHOLDER WAS "hey"
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
+  //ADD NEW TODO TO LOCAL STORAGE
+  saveLocaltodos(todoInput.value); //RUNS SAVE LOCALTODOS FUNCTION (SEE END OF CODE) AND PUTS THE VALUE OF TODO INPUT AS THE PARAMETER
   //Check mark button
   const completedButton = document.createElement("button");
   completedButton.innerHTML = '<i class="fas fa-check"></i>';
@@ -76,4 +78,17 @@ function filterTodo(e) {
         }
     }
   });
+}
+
+function saveLocaltodos(todo) {
+  //CHECK - DO I ALREADY HAVE TODOS SAVED LOCALLY?
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
