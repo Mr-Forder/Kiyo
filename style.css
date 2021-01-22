@@ -181,9 +181,16 @@ select {
 .complete-btn,
 .trash-btn,
 .todo-item{
-  background: #D62841;
+  /* background: #D62841; */
+  background: #FF0049;
+
+  
+
+
+
+
   border: none;
-  font-family: 'Armata', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .todo-input{
@@ -194,5 +201,14 @@ select {
   margin-right: 1rem;
 
 }
+
+
+
+.todo-button, .todo {
+  background: #FF0049;
+  color: white;
+  border-radius: 5px;
+}
+
 
 */
