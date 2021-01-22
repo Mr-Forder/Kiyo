@@ -1,64 +1,67 @@
-//SELECTORS
+//Select DOM
 const todoInput = document.querySelector(".todo-input");
 const todoButton = document.querySelector(".todo-button");
 const todoList = document.querySelector(".todo-list");
 const filterOption = document.querySelector(".filter-todo");
 
-//EVENT LISTENERS
-todoButton.addEventListener("click", addTodo);
-todoList.addEventListener("click", deleteCheck);
-filterOption.addEventListener("click", filterTodo);
+//Event Listeners
 document.addEventListener("DOMContentLoaded", getTodos);
-//FUNCTIONS
+todoButton.addEventListener("click", addTodo);
+todoList.addEventListener("click", deleteTodo);
+filterOption.addEventListener("click", filterTodo);
+
+//Functions
 
 function addTodo(e) {
-  //PREVENT FORM FROM SUBMITTING
+  //Prevent natural behaviour
   e.preventDefault();
-
-  //create todo div
+  //Create todo div
   const todoDiv = document.createElement("div");
   todoDiv.classList.add("todo");
-  //create li
+  //Create list
   const newTodo = document.createElement("li");
-  newTodo.innerText = todoInput.value; //SETS CONTENTS OF TODO LI AS THE VALUE OF THE INPUT BOX -PLACEHOLDER WAS "hey"
+  newTodo.innerText = todoInput.value;
+  //Save to local - do this last
+  //Save to local
+  saveLocalTodos(todoInput.value);
+  //
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
-  //ADD NEW TODO TO LOCAL STORAGE
-  saveLocaltodos(todoInput.value); //RUNS SAVE LOCALTODOS FUNCTION (SEE END OF CODE) AND PUTS THE VALUE OF TODO INPUT AS THE PARAMETER
-  //Check mark button
+  todoInput.value = "";
+  //Create Completed Button
   const completedButton = document.createElement("button");
-  completedButton.innerHTML = '<i class="fas fa-check"></i>';
+  completedButton.innerHTML = `<i class="fas fa-check"></i>`;
   completedButton.classList.add("complete-btn");
   todoDiv.appendChild(completedButton);
-
+  //Create trash button
   const trashButton = document.createElement("button");
-  trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+  trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
   trashButton.classList.add("trash-btn");
   todoDiv.appendChild(trashButton);
-
-  //append to list
+  //attach final Todo
   todoList.appendChild(todoDiv);
-  //CLEAR INPUT BOX WHEN SUBMITTED
-  todoInput.value = "";
 }
-//delete button actions
-function deleteCheck(e) {
+
+function deleteTodo(e) {
   const item = e.target;
+
   if (item.classList[0] === "trash-btn") {
-    const todo = item.parentElement; //creates a variable called todo containing all of the contents of item
-    todo.classList.add("fall"); //change todo class to 'fall'
+    // e.target.parentElement.remove();
+    const todo = item.parentElement;
+    todo.classList.add("fall");
+    //at the end
     removeLocalTodos(todo);
-    todo.addEventListener("transitionend", function () {
-      //adds an event listener with a function to activate once css transition is complete
-      todo.remove(); //removes todo
+    todo.addEventListener("transitionend", (e) => {
+      todo.remove();
     });
   }
   if (item.classList[0] === "complete-btn") {
     const todo = item.parentElement;
     todo.classList.toggle("completed");
+    console.log(todo);
   }
 }
-//check button actions
+
 function filterTodo(e) {
   const todos = todoList.childNodes;
   todos.forEach(function (todo) {
@@ -83,19 +86,16 @@ function filterTodo(e) {
   });
 }
 
-function saveLocaltodos(todo) {
-  //FUNCTION TO PASS TODOS INTO LOCAL STORAGE
-  let todos; //CREATE EMPTY VARIABLE, TODOS
-  //CHECK - DO I ALREADY HAVE TODOS SAVED LOCALLY?
+function saveLocalTodos(todo) {
+  let todos;
   if (localStorage.getItem("todos") === null) {
-    todos = []; //IF NOT, CHANGE TODOS VARIABLE INTO AN EMPTY ARRAY
+    todos = [];
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
   todos.push(todo);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
-
 function removeLocalTodos(todo) {
   let todos;
   if (localStorage.getItem("todos") === null) {
@@ -109,48 +109,33 @@ function removeLocalTodos(todo) {
 }
 
 function getTodos() {
-  console.log(`hello`);
   let todos;
-  //CHECK - DO I ALREADY HAVE TODOS SAVED LOCALLY?
   if (localStorage.getItem("todos") === null) {
     todos = [];
   } else {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
   todos.forEach(function (todo) {
+    //Create todo div
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
-    //create li
+    //Create list
     const newTodo = document.createElement("li");
-    newTodo.innerText = todo; //SETS CONTENTS OF TODO LI AS THE VALUE OF THE INPUT BOX -PLACEHOLDER WAS "hey"
+    newTodo.innerText = todo;
     newTodo.classList.add("todo-item");
     todoDiv.appendChild(newTodo);
-    //Check mark button
+    todoInput.value = "";
+    //Create Completed Button
     const completedButton = document.createElement("button");
-    completedButton.innerHTML = '<i class="fas fa-check"></i>';
+    completedButton.innerHTML = `<i class="fas fa-check"></i>`;
     completedButton.classList.add("complete-btn");
     todoDiv.appendChild(completedButton);
-
+    //Create trash button
     const trashButton = document.createElement("button");
-    trashButton.innerHTML = '<i class="fas fa-trash"></i>';
+    trashButton.innerHTML = `<i class="fas fa-trash"></i>`;
     trashButton.classList.add("trash-btn");
     todoDiv.appendChild(trashButton);
-
-    //append to list
+    //attach final Todo
     todoList.appendChild(todoDiv);
   });
-
-  //REMOVING ELEMENTS FROM ARRAY - JUST MESSING ABOUT
-
-  const people = ["fred", "john", "roger", "dave", "mike"]; //CREATE AN ARRAY OF PEOPLE
-  console.log(people);
-
-  const rogerIndex = people.indexOf("roger"); //CREATE A VARIABLE, STORE THE INDEX VALUE OF ROGER
-
-  console.log(rogerIndex);
-
-  people.splice(rogerIndex, 1); // CUTS OUT ROGER FROM THE ARRAY. SELECTS ROGERINDEX, THEN GIVES 1 AS THE SECOND VALUE, AS YOU ONLY WANT TO SPLICE HIM, NOT OTHERS TOO
-  console.log(people);
-  //SO, YOU LOOK AT YOUR ARRAY, FIND THE INDEX OF WHO YOU WANT GONE, STORE IT IN A VARIABLE, THEN SPLICE THE ARRAY, CALLING THE INDEX VALUE YOU JUST FOUND, AND THE NUMBER 1 TO TELL
-  //THE SPLICE FUNCTION THAT YOU ONLY WANT TO DELETE ONE PERSON.
 }
