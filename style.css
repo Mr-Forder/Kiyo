@@ -7,7 +7,6 @@
   outline: 0 !important;
 }
 
-
 body {
   background: linear-gradient(180deg, #191919, #191919);
   color: white;
@@ -27,48 +26,10 @@ form {
   align-items: center;
 }
 
-form input,
-form button {
-  font-size: 2rem;
-  border: none;
-  padding: 0.5rem;
-  background: #D62841;
-  
-}
-
-form button {
-  color: #FFFFFF;
-  background: #D62841;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-  
-}
-
-form button :hover {
-  background: white;
-  color: #D62841;
-  transition: all 0.3s ease;
-}
 .todo-container {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.todo-list {
-  min-width: 36%;
-  list-style: none;
-}
-
-.todo {
-  margin: 0.5rem;
-  background: white;
-  color: black;
-  font-size: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.5s ease;
 }
 
 .todo li {
@@ -137,7 +98,7 @@ select {
 .select::after {
   content: "\25BC";
   position: absolute;
-  background: #D62841;
+  background: #d62841;
   top: 0;
   right: 0;
   padding: 1rem;
@@ -145,70 +106,190 @@ select {
   transition: all 0.3s ease;
 }
 
-.select:hover::after{
-  background:white;
-  color:#ff6f47;
+.select:hover::after {
+  background: white;
+  color: #ff6f47;
 }
 
-.filter-todo{
-  background: #D62841;
+.filter-todo {
+  background: #d62841;
   color: white;
 
   border-radius: 5px;
 }
 
-.todo{
-  border: 3px solid black;
-  
-  margin: none;
+.todo {
+  margin: 0.5rem;
+  background: #ff0049;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.5s ease;
+  border-radius: 10px;
+  overflow: auto;
 }
 
-
-.todo-button,
-.todo{
-  background: #D62841;
-  color: white;
-
-  border-radius: 5px;
- 
-}
-
-
-.logo{
+.logo {
   height: 5rem;
-  margin:4rem;
+  margin: 4rem;
 }
 .complete-btn,
 .trash-btn,
-.todo-item{
-  /* background: #D62841; */
-  background: #FF0049;
-
-  
-
-
-
-
+.todo-item {
+  background: #ff0049;
+  border-radius: 10px;
   border: none;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
+  overflow: hidden;
 }
 
-.todo-input{
-  color:white;
-  font-family: 'Armata', sans-serif;
-  border-right: none  ;
-  border-radius: 5px;
-  margin-right: 1rem;
-
-}
-
-
-
-.todo-button, .todo {
-  background: #FF0049;
+.todo-input {
   color: white;
-  border-radius: 5px;
+  font-family: "Armata", sans-serif;
+  font-size: 1rem;
+  border-radius: 10px 0px 0px 10px;
+  background-color: #000000;
+  min-width: 40%;
+  padding: 20px;
+  margin-left: 2rem;
 }
 
+.todo-list {
+  min-width: 45%;
+  max-width: 45%;
+  list-style: none;
+  font-size: 1rem;
+}
 
-*/
+.todo-button {
+  background: #e90237;
+  color: white;
+  border-radius: 0px 10px 10px 0px;
+  font-size: 1rem;
+  padding: 20px;
+}
+
+form input,
+form button {
+  font-size: 1rem;
+  border: none;
+  background: #d62841;
+}
+
+form button {
+  color: #ffffff;
+  background: #d62841;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+form button :hover {
+  background: white;
+  color: #d62841;
+  transition: all 0.3s ease;
+}
+
+@media screen and (max-width: 600px) {
+  .todo-input,
+  .todo {
+    font-size: 1rem;
+  }
+
+  .todo-input {
+    min-width: 80%;
+    max-width: 80%;
+  }
+
+  .todo-list {
+    min-width: 95%;
+    max-width: 80%;
+  }
+}
+
+/*ANIMATED FOREGROUND*/
+#content-wrap {
+  z-index: 100;
+  position: relative;
+}
+.animation-area {
+  width: 100%;
+  height: 100vh;
+  z-index: -11;
+}
+.box-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.box-area li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 25px;
+  height: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  animation: animate 20s linear infinite;
+  bottom: -150px;
+  z-index: 0;
+}
+.box-area li:nth-child(1) {
+  left: 86%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+  z-index: -10;
+}
+.box-area li:nth-child(2) {
+  left: 12%;
+  width: 30px;
+  height: 30px;
+  animation-delay: 1.5s;
+  animation-duration: 10s;
+  z-index: -9;
+}
+.box-area li:nth-child(3) {
+  left: 70%;
+  width: 100px;
+  height: 100px;
+  animation-delay: 5.5s;
+  z-index: -8;
+}
+.box-area li:nth-child(4) {
+  left: 42%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 15s;
+  z-index: -7;
+}
+.box-area li:nth-child(5) {
+  left: 65%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 0s;
+  z-index: -6;
+}
+.box-area li:nth-child(6) {
+  z-index: 0;
+  left: 15%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3.5s;
+  z-index: -5;
+}
+@keyframes animate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-800px) rotate(360deg);
+    opacity: 0;
+  }
+}
+/*ANIMATED FOREGROUND*/
